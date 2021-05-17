@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/history1.css">
+<script src="/bishe/js/jquery-3.4.1.min.js"></script>
+<title>历史数据查询</title>
+</head>
+<body class="bg" onload="get()">
+	<div class="box"></div>
+</body>
+<script>
+function get(){
+	
+	var city = sessionStorage.getItem('city');
+	var datestart = sessionStorage.getItem('datestart');
+	var dateend = sessionStorage.getItem('dateend');
+	
+	
+	console.log("yes");
+
+	var data = {
+		"city":city,
+		"datestart":datestart,
+		"dateend":dateend
+	};
+	$.ajax({
+		url:"http://localhost:8080/bishe/HistoryServlet",
+		dataType : "json",
+		type : "get",
+		data : data,
+		success:function(data){
+			//console.log(data);
+			showList(data.data);
+		},
+		error:function(XMLHttpRequest,textStatus,errorStatus){
+			alert(typeof(errorThrown));
+		}
+	})
+}
+		
+function getNewDay(dateTemp, days){
+	var dateTemp = dateTemp.split("-");
+	var nDate = new Date(dateTemp[1] + '-' + dateTemp[2] + '-' +dateTemp[0]);//转换为MM-DD-YYYY
+	var millSeconds = Math.abs(nDate) + (days * 24 *60 * 60 * 1000);
+	var rDate = new Date(millSeconds);
+	var year = rDate.getFullYear();
+	var month = rDate.getMonth() + 1;
+	if(month < 10)
+		month = "0" + month;
+	var date = rDate.getDate();
+	if(date < 10)
+		date = "0" + date;
+	return (year + "-" + month + "-" + date);
+}
+
+
+function showList(data){
+	console.log("进来啦");
+	//var html = '<p>'+city+'市'+datestart+'一周内AQI的浓度</p>';
+	var html = '';
+	html += '<p>当前日期AQI历史数据</p>';
+	
+	html += '<table border="1" cellspacing="0">';
+	html += '<tr>';
+	html += '<th>CITY</th><th>DATE</th><th>AQI</th><th>GRADE</th>';
+	html += '</tr>';
+	html += '<tr>';
+	html += '<td>'+data[data.length-1].CITY+'</td><td>'+data[data.length-1].DATE+'</td><td>'+data[data.length-1].AQI+'</td><td>'+data[data.length-1].GRADE+'</td>';
+	html += '</tr>';
+	html += '</table></br>';
+	
+	
+	html += '<p>当前日期过去一周AQI历史数据</p>';
+	html += '<table border="1" cellspacing="0">';
+	html += '<tr>';
+	html += '<th>CITY</th><th>DATE</th><th>AQI</th><th>GRADE</th>';
+	html += '</tr>';
+	for(var i=0;i<data.length-1;i++){
+		html += '<tr>';
+		html += '<td>'+data[i].CITY+'</td><td>'+data[i].DATE+'</td><td>'+data[i].AQI+'</td><td>'+data[i].GRADE+'</td>';
+		html += '</tr>';
+	}
+	html += '</table>';
+	$(".box").empty().append(html);
+}
+</script>
+</script>
+</html>

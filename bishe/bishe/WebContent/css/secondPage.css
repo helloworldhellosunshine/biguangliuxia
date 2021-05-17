@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.bg {
+    background-image:url("../img/00.jpg");
+    background-size: cover;
+    background-attachment:fixed;
+}
+.bg .box {
+    background-color: white;
+    border: 1px solid skyblue;
+    width: 25%;
+    margin: 200px auto;
+}
+.bg .box h3{
+    color: #fff;
+    background-color: #ddd;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 16px;
+}
+.bg .box .div1{
+	margin: 0 auto;
+	width: 80%;
+	background-color: skyblue;
+	margin-top: 34px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+}
+.bg .box .div2{
+	margin: 0 auto;
+	width: 80%;
+	background-color: skyblue;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+}

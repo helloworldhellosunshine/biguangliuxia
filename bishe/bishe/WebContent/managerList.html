@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/secondPage.css">
+<script src="/bishe/js/jquery-3.4.1.min.js"></script>
+<title>管理员列表页</title>
+<script>
+	
+</script>
+</head>
+<body class="bg">
+	<div class="box">
+		<!-- <h3 id="id"></h3>
+		<h3 id="date"></h3> -->
+		<h3>请选择要管理的模块</h3>
+		<div class="div1">1、数据管理&nbsp;&nbsp;
+			<button id="btn1" type="button" onclick="get1()">查看</button>
+		</div></br>
+		<div class="div2">2、用户管理&nbsp;&nbsp;
+			<button id="btn2" type="button" onclick="get2()">查看</button>
+		</div></br>
+	</div>
+</body>
+<script>
+function get1(){
+
+	/*var city = sessionStorage.getItem('city');//获取
+	var datestart = sessionStorage.getItem('datestart');//获取
+	var dateend = sessionStorage.getItem('dateend');//获取
+	console.log(datestart);
+	console.log(dateend);*/
+	
+	window.location.href = "http://localhost:8080/bishe/databefore.html";	
+	/*$.ajax({
+		url: "http://localhost:8080/bishe/HistoryServlet",
+		type: "get",
+		dataType: "json",
+		data: data,
+		success:function(data){
+			console.log(data.data);
+		},
+		error:function(XMLHttpRequest,textStatus,errorStatus){
+			alert(typeof(errorThrown));
+		}
+	});*/
+}
+function get2(){
+	window.location.href = "http://localhost:8080/bishe/user.html";	
+	/*$.ajax({
+		url: "http://localhost:8080/bishe/FutureServlet",
+		type: "get",
+		dataType: "json",
+		data: data,
+		success:function(data){
+			console.log(data.data);
+		},
+		error:function(XMLHttpRequest,textStatus,errorStatus){
+			alert(typeof(errorThrown));
+		}
+	});*/
+}
+
+</script>
+</html>

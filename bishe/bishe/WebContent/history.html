@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/firstPage.css">
+<script src="/bishe/js/jquery-3.4.1.min.js"></script>
+<title>历史数据</title>
+
+</head>
+<body class="bg">
+	<div class="box">
+		<div class="div1">
+			<tr>
+				<td>请选择要查询的城市：</td>
+				<td>
+					<select style="height:26px;" id="city">
+						<option value="北京" selected="selected">北京</option>
+						<option value="重庆">重庆</option>
+						<option value="长沙">长沙</option>
+						<option value="成都">成都</option>
+						<option value="重庆">重庆</option>
+						<option value="福州">福州</option>
+						<option value="广州">广州</option>
+						<option value="贵阳">贵阳</option>
+						<option value="哈尔滨">哈尔滨</option>
+						<option value="杭州">杭州</option>
+						<option value="合肥">合肥</option>
+						<option value="济南">济南</option>
+						<option value="昆明">昆明</option>
+						<option value="兰州">兰州</option>
+						<option value="拉萨">拉萨</option>
+						<option value="南昌">南昌</option>
+						<option value="南京">南京</option>
+						<option value="上海">上海</option>
+						<option value="沈阳">沈阳</option>
+						<option value="深圳">深圳</option>
+						<option value="石家庄">石家庄</option>
+						<option value="太原">太原</option>
+						<option value="天津">天津</option>
+						<option value="武汉">武汉</option>
+						<option value="乌鲁木齐">乌鲁木齐</option>
+						<option value="西宁">西宁</option>
+						<option value="银川">银川</option>
+						<option value="郑州">郑州</option>
+					</select>
+				</td>
+			</tr>	
+		</div>
+		<p>请输入要查询的日期</p>
+		<p>以yyyy-mm-dd形式</p>
+		<p>在2020-05-10到2021-05-09之间</p></br>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp日期：<input type="text" id="date"></input></br>
+		<input style="width: 50px;height:30px;margin-left: 130px;"  type="button" value="查询"  onclick="get()"/></input>
+	</div>
+</body>
+<script>
+function get(){
+	
+	//console.log("yes");
+	//alert("请输入2020-04-01到2021-03-31之间的日期，以yyyy-mm-dd的形式！");
+	//发起查询请求，给js绑定事件
+	
+	var city = $("#city").val();
+	var dateend = $("#date").val();
+	var datestart = getNewDay(dateend,-7);
+	//console.log(city);
+	//console.log(datestart);
+	//console.log(dateend);
+	
+	sessionStorage.setItem('city',city);//session
+	sessionStorage.setItem('datestart',datestart);
+	sessionStorage.setItem('dateend',dateend);	
+	
+
+	window.location.href="http://localhost:8080/bishe/history1.html";
+	
+	
+	/*var data = {
+		"city":city,
+		"datestart":datestart,
+		"dateend":dateend
+	};
+	$.ajax({
+		url:"http://localhost:8080/bishe/HistoryServlet",
+		dataType : "json",
+		type : "get",
+		data : data,
+		success:function(data){
+			//console.log(data);
+			window.location.href="http://localhost:8080/bishe/history1.html";
+		},
+		error:function(XMLHttpRequest,textStatus,errorStatus){
+			alert(typeof(errorThrown));
+		}
+	})*/
+}
+		
+function getNewDay(dateTemp, days){
+	var dateTemp = dateTemp.split("-");
+	var nDate = new Date(dateTemp[1] + '-' + dateTemp[2] + '-' +dateTemp[0]);//转换为MM-DD-YYYY
+	var millSeconds = Math.abs(nDate) + (days * 24 *60 * 60 * 1000);
+	var rDate = new Date(millSeconds);
+	var year = rDate.getFullYear();
+	var month = rDate.getMonth() + 1;
+	if(month < 10)
+		month = "0" + month;
+	var date = rDate.getDate();
+	if(date < 10)
+		date = "0" + date;
+	return (year + "-" + month + "-" + date);
+}
+</script>
+</html>

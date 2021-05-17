@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/future1.css">
+<script src="/bishe/js/jquery-3.4.1.min.js"></script>
+<title>预测数据查询</title>
+</head>
+<body class="bg" onload="get()">
+	<div class="box">
+		<!--<p>北京市当天AQI的浓度</p>
+		<table border="1" cellspacing="0">
+			<tr>
+				<th>城市</th><th>日期</th><th>AQI</th>
+			</tr>
+    		<tr>
+				<td>北京</td><td>2021-02-02</td><td>182</td>
+			</tr>
+		</table></br>
+		
+		
+		<p>北京市一周内AQI的浓度</p>
+		<table border="1" cellspacing="0">
+			<tr>
+				<th>城市</th><th>日期</th><th>AQI</th>
+			</tr>
+    		<tr>
+				<td>北京</td><td>2021-01-01</td><td>182</td>
+			</tr>
+			<tr>
+				<td>上海</td><td>2021-01-01</td><td>172</td>
+			</tr>
+		</table>  -->
+		
+	</div>
+</body>
+<script>
+function get(){
+	
+	var city = sessionStorage.getItem('city');
+	var datestart = sessionStorage.getItem('datestart');
+	var dateend = sessionStorage.getItem('dateend');
+	
+	
+	//console.log("yes");
+	//alert("请输入2020-04-01到2021-03-31之间的日期，以yyyy-mm-dd的形式！");
+	//发起查询请求，给js绑定事件
+	//var city = $("#city").val();
+	
+	//var dateend = $("#date").val();
+	//var datestart = getNewDay(dateend,-7);
+	//console.log(city);
+	//console.log(datestart);
+	//console.log(dateend);
+	
+	//sessionStorage.setItem('city',city);//session
+	//sessionStorage.setItem('datestart',datestart);
+	//sessionStorage.setItem('dateend',dateend);	
+	
+
+	var data = {
+		"city":city,
+		"datestart":datestart,
+		"dateend":dateend
+	};
+	$.ajax({
+		url:"http://localhost:8080/bishe/FutureServlet",
+		dataType : "json",
+		type : "get",
+		data : data,
+		success:function(data){
+			//console.log(data);
+			showList(data.data);
+		},
+		error:function(XMLHttpRequest,textStatus,errorStatus){
+			alert(typeof(errorThrown));
+		}
+	})
+}
+		
+function getNewDay(dateTemp, days){
+	var dateTemp = dateTemp.split("-");
+	var nDate = new Date(dateTemp[1] + '-' + dateTemp[2] + '-' +dateTemp[0]);//转换为MM-DD-YYYY
+	var millSeconds = Math.abs(nDate) + (days * 24 *60 * 60 * 1000);
+	var rDate = new Date(millSeconds);
+	var year = rDate.getFullYear();
+	var month = rDate.getMonth() + 1;
+	if(month < 10)
+		month = "0" + month;
+	var date = rDate.getDate();
+	if(date < 10)
+		date = "0" + date;
+	return (year + "-" + month + "-" + date);
+}
+
+
+function showList(data){
+	//console.log("进来啦");
+	var html = '';
+	html += '<p>当前日期AQI预测数据</p>';
+	
+	html += '<table border="1" cellspacing="0">';
+	html += '<tr>';
+	html += '<th>CITY</th><th>DATE</th><th>YCAQI</th><th>GRADE</th><th>DIRECT</th>';
+	html += '</tr>';
+	html += '<tr>';
+	var Y = "";
+	if(data[0].GRADE=="良好"){
+		Y = "各类人群可正常活动";
+	}else if(data[0].GRADE=="中等"){
+		Y = "及少数异常敏感人群尽量减少户外活动";
+	}else if(data[0].GRADE=="对敏感人群不健康"){
+		Y = "老年人、儿童、体弱多病者及呼吸系统疾病、心脏病病患者应尽量减少长时间、高强度的户外活动和锻炼";
+	}else if(data[0].GRADE=="不健康"){
+		Y = "易感人群疾病患者应尽量避免长时间、高强度的户外活动和锻练，一般人群也应该适当的减少户外活动";
+	}else if(data[0].GRADE=="非常不健康"){
+		Y = "老年人、儿童和肺病、心脏病患者应尽量停留在室内，停止户外活动，一般人群也应减少户外活动";
+	}else if(data[0].GRADE=="有毒害"){
+		Y = "老年人、儿童和病人应当留在室内，避免体力消耗，一般人群也应尽量避免户外活动";
+	}
+	html += '<td>'+data[0].CITY+'</td><td>'+data[0].DATE+'</td><td>'+data[0].AQI+'</td><td>'+data[0].GRADE+'</td><td>'+Y+'</td>';
+	html += '</tr>';
+	html += '</table></br>';
+	
+	
+	html += '<p>当前日期未来一周AQI预测数据</p>';
+	html += '<table border="1" cellspacing="0">';
+	html += '<tr>';
+	html += '<th>CITY</th><th>DATE</th><th>YCAQI</th><th>GRADE</th><th>DIRECT</th>';
+	html += '</tr>';
+	for(var i=1;i<data.length;i++){
+		html += '<tr>';
+		var X = "";
+		if(data[i].GRADE=="良好"){
+			X = "各类人群可正常活动";
+		}else if(data[i].GRADE=="中等"){
+			X = "建议老年人、儿童、体弱多病者及呼吸系统疾病、心脏病病患者应尽量减少长时间、高强度的户外活动和锻炼";
+		}else if(data[i].GRADE=="对敏感人群不健康"){
+			X = "老年人、儿童、体弱多病者及呼吸系统疾病、心脏病病患者应尽量减少长时间、高强度的户外活动和锻炼";
+		}else if(data[i].GRADE=="不健康"){
+			X = "易感人群疾病患者应尽量避免长时间、高强度的户外活动和锻练，一般人群也应该适当的减少户外活动";
+		}else if(data[i].GRADE=="非常不健康"){
+			X = "老年人、儿童和肺病、心脏病患者应尽量停留在室内，停止户外活动，一般人群也应减少户外活动";
+		}else if(data[i].GRADE=="有毒害"){
+			X = "老年人、儿童和病人应当留在室内，避免体力消耗，一般人群也应尽量避免户外活动";
+		}
+		html += '<td>'+data[i].CITY+'</td><td>'+data[i].DATE+'</td><td>'+data[i].YCAQI+'</td><td>'+data[i].GRADE+'</td><td style="width: 200px;">'+X+'</td>';
+		html += '</tr>';
+	}
+	html += '</table>';
+	$(".box").empty().append(html);
+}
+</script>
+</script>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   <link rel="stylesheet" href="/bishe/resources/layui/css/layui.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script> 
+  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+ <!--修改的from表单 -->
+  <form class="layui-form" action="" id="updataForm" style="display:none" lay-filter="updata" enctype="multipart/form-data">
+    <div class="layui-form-item" style="display:none">
+      <label class="layui-form-label">id</label>
+      <div class="layui-input-block">
+        <input type="text" id="id" name="id" lay-verify="id" autocomplete="off" placeholder="id" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">时间</label>
+      <div class="layui-input-block">
+        <input type="text" id="date" name="date" lay-verify="date" autocomplete="off" placeholder="时间" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">城市</label>
+      <div class="layui-input-block">
+        <input type="text" id="city" name="city" lay-verify="city" autocomplete="off" placeholder="城市" class="layui-input">
+      </div>
+    </div>
+
+ <div class="layui-form-item">
+      <label class="layui-form-label">pm25</label>
+      <div class="layui-input-block">
+        <input type="text" id="pm25" name="pm25" lay-verify="pm25" autocomplete="off" placeholder="pm25" class="layui-input">
+      </div>
+    </div>
+
+ <div class="layui-form-item">
+      <label class="layui-form-label">pm10</label>
+      <div class="layui-input-block">
+        <input type="text" id="pm10" name="pm10" lay-verify="pm10" autocomplete="off" placeholder="pm10" class="layui-input">
+      </div>
+    </div>
+
+ <div class="layui-form-item">
+      <label class="layui-form-label">so2</label>
+      <div class="layui-input-block">
+        <input type="text" id="so2" name="so2" lay-verify="so2" autocomplete="off" placeholder="so2" class="layui-input">
+      </div>
+    </div>
+
+ <div class="layui-form-item">
+      <label class="layui-form-label">co</label>
+      <div class="layui-input-block">
+        <input type="text" id="co" name="co" lay-verify="co" autocomplete="off" placeholder="co" class="layui-input">
+      </div>
+    </div>
+
+ <div class="layui-form-item">
+      <label class="layui-form-label">no2</label>
+      <div class="layui-input-block">
+        <input type="text" id="no2" name="no2" lay-verify="no2" autocomplete="off" placeholder="no2" class="layui-input">
+      </div>
+    </div>
+
+ <div class="layui-form-item">
+      <label class="layui-form-label">o3_8h</label>
+      <div class="layui-input-block">
+        <input type="text" id="o3_8h" name="o3_8h" lay-verify="o3_8h" autocomplete="off" placeholder="o3_8h" class="layui-input">
+      </div>
+    </div>
+
+ <div class="layui-form-item">
+      <label class="layui-form-label">aqi</label>
+      <div class="layui-input-block">
+        <input type="text" id="aqi" name="aqi" lay-verify="aqi" autocomplete="off" placeholder="aqi" class="layui-input">
+      </div>
+    </div>
+
+ <div class="layui-form-item">
+      <label class="layui-form-label">ycaqi</label>
+      <div class="layui-input-block">
+        <input type="text" id="ycaqi" name="ycaqi" lay-verify="ycaqi" autocomplete="off" placeholder="ycaqi" class="layui-input">
+      </div>
+    </div>
+
+ <div class="layui-form-item">
+      <label class="layui-form-label">grade</label>
+      <div class="layui-input-block">
+        <input type="text" id="grade" name="grade" lay-verify="grade" autocomplete="off" placeholder="建议" class="layui-input">
+      </div>
+    </div>
+
+
+
+	<div class="layui-form-item" id="sub">
+    	<button style="" class="layui-btn" type="button" lay-submit lay-filter="demo3" id="updatasub">提交</button>
+  	</div>
+</form>
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+    <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+    <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+	<button class="layui-btn layui-btn-sm" lay-event="getCity">选择城市</button>
+  </div>
+<div>
+		<select style="height:26px;" id="city1">
+			<option value="北京" selected="selected">北京</option>
+			<option value="重庆">重庆</option>
+			<option value="长沙">长沙</option>
+			<option value="成都">成都</option>
+						<option value="重庆">重庆</option>
+						<option value="福州">福州</option>
+						<option value="广州">广州</option>
+						<option value="贵阳">贵阳</option>
+						<option value="哈尔滨">哈尔滨</option>
+						<option value="杭州">杭州</option>
+						<option value="合肥">合肥</option>
+						<option value="济南">济南</option>
+						<option value="昆明">昆明</option>
+						<option value="兰州">兰州</option>
+						<option value="拉萨">拉萨</option>
+						<option value="南昌">南昌</option>
+						<option value="南京">南京</option>
+						<option value="上海">上海</option>
+						<option value="沈阳">沈阳</option>
+						<option value="深圳">深圳</option>
+						<option value="石家庄">石家庄</option>
+						<option value="太原">太原</option>
+						<option value="天津">天津</option>
+						<option value="武汉">武汉</option>
+						<option value="乌鲁木齐">乌鲁木齐</option>
+						<option value="西宁">西宁</option>
+						<option value="银川">银川</option>
+						<option value="郑州">郑州</option>
+					</select>
+</div>
+
+</script>
+ 
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+              
+          
+<script src="/bishe/resources/layui/layui.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 --> 
+ 
+<script>
+layui.use('table', function(){
+  var table = layui.table;
+  
+  table.render({
+    elem: '#test'
+    ,url:'http://localhost:8080/bishe/SelectServlet?city=北京'
+    ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+    ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+      title: '提示'
+      ,layEvent: 'LAYTABLE_TIPS'
+      ,icon: 'layui-icon-tips'
+    }]
+    ,title: '雾霾数据表'
+    ,cols: [[
+      {type: 'checkbox', fixed: 'left'}
+      ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+      ,{field:'DATE', title:'日期', width:120, edit: 'text'}
+      ,{field:'CITY', title:'城市', width:90, edit: 'text'}
+      ,{field:'PM25', title:'PM25', width:80, edit: 'text'}
+      ,{field:'PM10', title:'PM10', width:80, edit: 'text'}
+      ,{field:'SO2', title:'SO2', width:80, edit: 'text'}
+      ,{field:'CO', title:'CO', width:80, edit: 'text'}
+      ,{field:'NO2', title:'NO2', width:80, edit: 'text'}
+      ,{field:'O3_8h', title:'O3_8h', width:80, edit: 'text'}
+      ,{field:'AQI', title:'AQI', width:80, edit: 'text'}
+      ,{field:'YCAQI', title:'YCAQI', width:80, edit: 'text'}
+      ,{field:'GRADE', title:'建议', width:150, edit: 'text'}
+      ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+    ]]
+    ,page: true
+    ,limit:7
+    ,response:{
+		statusName: 'status' //规定数据状态的字段名称，默认：code
+		,dataName: 'rows' //规定数据列表的字段名称，默认：data
+	} 
+		,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+			return {
+		        "status": res[0].status,   //解析接口状态
+		        "message":res[1].message,  //解析提示文本
+		        "count": 100,       //解析数据长度
+		        "rows": res[3].rows.item  //解析数据列表
+		    };
+  	}
+  });
+  
+  //头工具栏事件
+  table.on('toolbar(test)', function(obj){
+    var checkStatus = table.checkStatus(obj.config.id);
+    switch(obj.event){
+      case 'getCheckData':
+        var data = checkStatus.data;
+        layer.alert(JSON.stringify(data));
+      break;
+      case 'getCheckLength':
+        var data = checkStatus.data;
+        layer.msg('选中了：'+ data.length + ' 个');
+      break;
+      case 'isAll':
+        layer.msg(checkStatus.isAll ? '全选': '未全选');
+      break;
+      case 'getCity':
+          getCityData();
+        break;
+      
+      //自定义头工具栏右侧图标 - 提示
+      case 'LAYTABLE_TIPS':
+        layer.alert('这是工具栏右侧自定义的一个图标按钮');
+      break;
+    };
+  });
+  
+  function getCityData(){
+	  var city = $("#city1").val();
+	  console.log(city);
+	  table.reload('test', {
+			url: 'http://localhost:8080/bishe/SelectServlet?city='+city
+		});
+  }
+  
+  
+  //监听行工具事件
+  table.on('tool(test)', function(obj){
+    var data = obj.data;
+    //console.log(obj)
+    if(obj.event === 'del'){
+      layer.confirm('真的删除行么', function(index){
+    	  deleteById(data);
+        layer.close(index);
+      });
+    } else if(obj.event === 'edit'){
+    	form.val("updata", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+    		  "id": data.id // "name": "value"
+    		  ,date:data.DATE
+    		  ,city:data.CITY
+    		  ,pm25:data.PM25
+    		  ,pm10:data.PM10
+    		  ,so2:data.SO2
+    		  ,co:data.CO
+    		  ,no2:data.NO2
+    		  ,o3_8h:data.O3_8h
+    		  ,aqi:data.AQI
+    		  ,ycaqi:data.YCAQI
+    		  ,grade:data.GRADE
+    		});
+      	updateById(data);
+    }
+  });
+  
+  //修改
+  function updateById(data){
+	 
+	  layer_index= layer.open({
+		  type: 1,  //可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+		  title: "修改", //数组第二项可以写任意css样式；如果你不想显示标题栏，你可以title: false
+		  area: ['500px', '400px'], //所打开页面大小
+		  content:$("#updataForm"), //内容
+		  //将数据显示在框上边
+		
+		  //关闭操作
+		  cancel: function(){
+			layer.close(layer_index);
+			$("#updataForm")[0].reset();
+		  }
+	 }); 
+	
+  }
+  
+//引入from表单
+  layui.use(['form', 'laydate'], function(){
+		form = layui.form;
+		form.render();
+		
+		form.on('submit(demo3)', function(data){
+			console.log(JSON.stringify(data.field));
+			$.ajax({   
+			     url:'http://localhost:8080/bishe/UpdateServlet',       
+			     method:'post',
+			     data:data.field,        
+			     dataType:'JSON',  
+			     success:function(res){   
+			    	 console.log(res)
+			          if(res.code=1){ 
+						console.log(res);	
+			         	 	layer.msg("添加成功");
+			           		getCityData();
+			          }else{
+			          	layer.msg("添加失败");  
+			           $("#updataForm")[0].reset();
+			           form.render();
+			          }            
+			     },
+			        error:function (data) {
+			         	layer.msg("网络错误");
+			          $("#updataForm")[0].reset();
+			          form.render(); 
+			     } 
+			    }) ;
+			 layer.close(layer_index);
+			});
+
+
+	});
+  
+  //删除
+  function deleteById(data){
+	 var city = data.CITY;
+	 var id = data.id;
+	
+	var url = "http://localhost:8080/bishe/DeleteServlet";
+	$.ajax({
+	    type: "post", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
+	    url: url,    //传输地址的URL
+	    data: {"id":id,"city":city}, //data代表我们的数据  key -value类型的数据
+	    dataType:'JSON',  
+	    async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
+	    success: function (res)
+	    {
+	    	getCityData();
+	    },
+	    error:function (XMLHttpRequest, textStatus, errorThrown) { 
+	        alert(typeof(errorThrown));
+	     }
+	});
+  }
+ 
+});
+</script>
+
+</body>
+</html>

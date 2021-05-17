@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/data.css">
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="/bishe/resources/js/jquery-3.4.1.min.js"></script>
+<script src="/bishe/resources/layer/layer.js"></script>
+<script src="/bishe/resources/js/cookie.js"></script>
+<title>管理数据</title>
+</head>
+<body class="bg" onload="get()">
+	<div class="box">
+	<tr>
+				<td>请选择要查询的城市：</td>
+				<td>
+					<select style="height:26px;" id="city">
+						<option value="北京" selected="selected">北京</option>
+						<option value="重庆">重庆</option>
+						<option value="长沙">长沙</option>
+						<option value="成都">成都</option>
+						<option value="重庆">重庆</option>
+						<option value="福州">福州</option>
+						<option value="广州">广州</option>
+						<option value="贵阳">贵阳</option>
+						<option value="哈尔滨">哈尔滨</option>
+						<option value="杭州">杭州</option>
+						<option value="合肥">合肥</option>
+						<option value="济南">济南</option>
+						<option value="昆明">昆明</option>
+						<option value="兰州">兰州</option>
+						<option value="拉萨">拉萨</option>
+						<option value="南昌">南昌</option>
+						<option value="南京">南京</option>
+						<option value="上海">上海</option>
+						<option value="沈阳">沈阳</option>
+						<option value="深圳">深圳</option>
+						<option value="石家庄">石家庄</option>
+						<option value="太原">太原</option>
+						<option value="天津">天津</option>
+						<option value="武汉">武汉</option>
+						<option value="乌鲁木齐">乌鲁木齐</option>
+						<option value="西宁">西宁</option>
+						<option value="银川">银川</option>
+						<option value="郑州">郑州</option>
+					</select>
+				</td>
+			</tr>	
+		</div>
+<from class="myTable" style="display:none">
+	<input name="id" id="id" type="hidden" ><!--隐藏域-->
+	<br><br><input name="date" id="date" type="text" placeholder="请输入DATE" autocomplete="off"/>
+	<br><br><input name="city" id="city" type="text" placeholder="请输入CITY" autocomplete="off"/>
+	<br><br><input name="pm25" id="pm25" type="text" placeholder="请输入PM25" autocomplete="off"/>
+	<br><br><input name="pm10" id="pm10" type="text" placeholder="请输入PM10" autocomplete="off"/>
+	<br><br><input name="so2" id="so2" type="text" placeholder="请输入SO2" autocomplete="off"/>
+	<br><br><input name="co" id="co" type="text" placeholder="请输入CO" autocomplete="off"/>
+	<br><br><input name="no2" id="no2" type="text" placeholder="请输入NO2" autocomplete="off"/>
+	<br><br><input name="o3_8h" id="o3_8h" type="text" placeholder="请输入O3_8h" autocomplete="off"/>
+	<br><br><input name="aqi" id="aqi" type="text" placeholder="请输入AQI" autocomplete="off"/>
+	<br><br><input name="ycaqi" id="ycaqi" type="text" placeholder="请输入YCAQI" autocomplete="off"/>
+	<br><br><input name="grade" id="grade" type="text" placeholder="请输入GRADE" autocomplete="off"/>
+	<br><br><input type="button" value="提交" id="submit1" onclick="submit()">		
+</from>
+</body>
+<script>
+function get(){
+	var city = getCookie("city");
+	var data = {
+		"city":city
+	};
+	$.ajax({
+		url:"http://localhost:8080/bishe/SelectServlet",
+		dataType : "json",
+		type : "get",
+		data : data,
+		success:function(data){
+			//console.log(data);
+			showList(data.data);
+		},
+		error:function(XMLHttpRequest,textStatus,errorStatus){
+			alert(typeof(errorThrown));
+		}
+	})
+}
+		
+
+function showList(data){
+	//console.log("进来啦");
+	var city = getCookie("city");
+	var html = '';
+	html += '<p style="margin-left: 450px;">'+city+'市数据</p>';
+	html += '<table border="1" cellspacing="0">';
+	html += '<tr>';
+	html += '<th>CITY</th><th>DATE</th><th>PM25</th><th>PM10</th><th>SO2</th><th>CO</th><th>NO2</th>';
+	html += '<th>O3_8h</th><th>AQI</th><th>YCAQI</th><th>GRADE</th><th>操作</th>';
+	html += '</tr>';
+	for(var i=1;i<data.length;i++){
+		html += '<tr>';
+		html += '<td>'+data[i].CITY+'</td><td>'+data[i].DATE+'</td><td>'+data[i].PM25+'</td>';
+		html += '<td>'+data[i].PM10+'</td><td>'+data[i].SO2+'</td><td>'+data[i].CO+'</td><td>'+data[i].NO2+'</td>';
+		html += '<td>'+data[i].O3_8h+'</td><td>'+data[i].AQI+'</td><td>'+data[i].YCAQI+'</td><td>'+data[i].GRADE+'</td>';
+		//html += '<td><button class='edit' index='"+data[i].id+"'>编辑</button>&nbsp;&nbsp<button class='remove' index='"+data[i].id+"'>删除</button></td>';
+		html += "<td><button onclick='edit(\""+data[i].id+"\",\""+data[i].CITY+"\")'>编辑</button>&nbsp;&nbsp;&nbsp;&nbsp;";
+		html += "<button class='edit1' onclick='delete1(\""+data[i].id+"\",\""+data[i].CITY+"\")'>删除</button></td>";
+		html += '</tr>';
+	}
+	html += '</table>';
+	$(".box").empty().append(html);
+}
+
+function edit(id,city){
+	var data = {
+		"city":city,
+		"id":id
+	};
+	console.log("进来啦1");
+	//console.log(city);
+	//console.log(id);
+	
+	//给未来元素添加点击事件
+	$(".myTable").on("click","edit1",function(){////////////////////////////////
+		//打开弹框
+		layer.open({
+			type:1,
+			area:['300px','800px'],//宽高
+			content:$(".myForm"),
+			success:function(){
+				$.ajax({
+					url:"http://localhost:8080/bishe/SelectServlet",
+					dataType : "json",
+					type : "get",
+					data : data,
+					success:function(data){
+						console.log("yes1");
+						console.log(data.data);
+						data = data.data;
+						$("#id").val(data[0].id);
+						$("#date").val(data[0].date);
+						$("#city").val(data[0].city);
+						$("#pm25").val(data[0].pm25);
+						$("#pm10").val(data[0].pm10);
+						$("#so2").val(data[0].so2);
+						$("#co").val(data[0].co);
+						$("#no2").val(data[0].no2);
+						$("#o3_8h").val(data[0].o3_8h);
+						$("#aqi").val(data[0].aqi);
+						$("#ycaqi").val(data[0].ycaqi);
+						$("#grade").val(data[0].grade);
+					},
+					error:function(XMLHttpRequest,textStatus,errorStatus){
+						console.log("no");
+						//alert(typeof(errorThrown));
+					}
+				})
+			}
+		})
+	});
+	
+	
+		/*$.ajax({
+			url:"http://localhost:8080/bishe/UpdateServlet",
+			dataType : "json",
+			type : "post",
+			data : data,
+			success:function(data){
+				console.log("yes");
+				console.log(data.data);
+				/*layer.open({
+					type:1,
+					area:['500px','800px'],//宽高
+					content:$(".myForm")
+				});*/
+				
+			/*},*/
+			/*error:function(XMLHttpRequest,textStatus,errorStatus){
+				console.log("no");
+				//alert(typeof(errorThrown));
+			}
+		})*/
+}
+
+function submit(){
+	var id = $("#id").val();
+	var date = $("#date").val();
+	var city = $("#city").val();
+	var pm25 = $("#pm25").val();
+	var pm10 = $("#pm10").val();
+	var so2 = $("#so2").val();
+	var co = $("#co").val();
+	var no2 = $("#no2").val();
+	var o3_8h = $("#o3_8h").val();
+	var aqi = $("#aqi").val();
+	var ycaqi = $("#ycaqi").val();
+	var grade = $("#grade").val();
+	$.ajax({
+		url:"http://localhost:8080/bishe/UpdateServlet",
+		dataType : "json",
+		type : "post",
+		data : {
+			id: id,
+			date: date,
+			city: city,
+			pm25: pm25,
+			pm10: pm10,
+			so2: so2,
+			co: co,
+			no2: no2,
+			o3_8h: o3_8h,
+			aqi: aqi,
+			ycaqi: ycaqi,
+			grade: grade
+		},
+		success:function(data){	
+			console.log(data.msg);
+		},
+		error:function(XMLHttpRequest,textStatus,errorStatus){
+			console.log("no");
+			//alert(typeof(errorThrown));
+		}
+	})
+}
+
+function delete1(id,city){
+	//console.log("进来啦2");
+	var data = {
+		"city":city,
+		"id":id
+	};
+		$.ajax({
+			url:"http://localhost:8080/bishe/DeleteServlet",
+			dataType : "json",
+			type : "post",
+			data : data,
+			success:function(data){
+				console.log(data.message);
+			},
+			error:function(XMLHttpRequest,textStatus,errorStatus){
+				alert(typeof(errorThrown));
+			}
+		})
+}
+
+
+</script>
+</script>
+</html>

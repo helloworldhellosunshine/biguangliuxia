@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.bg {
+    background-image:url("../img/00.jpg");
+    background-size: cover;
+    background-attachment:fixed;
+}
+.bg .box {
+    background-color: white;
+    border: 1px solid skyblue;
+    width: 25%;
+    margin: 200px auto;
+}
+.bg .box p{
+    color: #fff;
+    background-color: skyblue;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 16px;
+    width: 80%;
+    margin: 0 auto;
+}
+.bg .box tr{
+    color: #fff;
+    background-color: #ddd;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 16px;
+    background-color: skyblue;
+}
+
+.bg .box .div1{
+	margin: 0 auto;
+	width: 80%;
+	background-color: skyblue;
+	margin-top: 60px;
+	paddint-top: 30px;
+	margin-bottom: 50px;
+	height: 50px;
+	text-align: center;
+	line-height: 40px;
+}
+.bg .box .div1 #btn1{
+	margin-top:35px;
+	width: 50px;
+	heiht: 35px;
+	margin-top:25px;
+}
+.bg .box input{
+	height: 30px;
+	margin: 20px auto;
+}

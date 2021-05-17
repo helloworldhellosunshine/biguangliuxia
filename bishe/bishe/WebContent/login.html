@@ -1,0 +1,79 @@
+<!DOCTYPE html><!--文档声明，文档类型是html-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><!--元元素-->
+      <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>登录页面</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="/bishe/js/jquery-3.4.1.min.js"></script> 
+    <script src="/bishe/resources/layer/layer.js"></script>
+</head>
+
+<body class="bg">
+    <div class="box">
+        <form class="myForm">
+        	<h3>雾霾预测系统</h3></br>
+        	<tr>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请选择登录身份：</td>
+				<td>
+					<select id="type">
+						<option value="用户" selected="selected">用户</option>
+						<option value="管理员">管理员</option>
+					</select>
+				</td>
+			</tr></br>
+            	<input type="text"  id="account"></input>
+            	<input type="text"  id="password"></input>
+            <button id="btn" type="button" onclick="get()">登录</button>
+        </form>
+    </div>
+</body>
+<script>
+function get(){
+	
+	var type = $("#type").val();
+	
+	if(type=="用户"){//用户登录
+		console.log(type);
+		
+		var x = $("#account").val();
+		var y = $("#password").val();
+		var data ={
+			"account": x,
+			"password": y,
+			"type":type
+		};
+		
+		$.ajax({
+			url:"http://localhost:8080/bishe/LoginServlet",
+			dataType:"json",
+			type:"get",
+			data: data,
+			success:function(data){
+				//console.log(data.data);
+				window.location.href="http://localhost:8080/bishe/userList.html";
+			}
+		})
+	}
+	if(type=="管理员"){//管理员登录
+		console.log("管理员");
+		var data ={
+			"account": $("#account").val(),
+			"password": $("#password").val(),
+			"type":type
+		};
+		$.ajax({
+			url:"http://localhost:8080/bishe/LoginServlet",
+			dataType:"json",
+			type:"get",
+			data: data,
+			success:function(data){
+				console.log(data);
+				//alert(data.msg);
+				window.location.href="http://localhost:8080/bishe/back.html";
+			}
+		})
+	}
+}	
+</script>
+</html>

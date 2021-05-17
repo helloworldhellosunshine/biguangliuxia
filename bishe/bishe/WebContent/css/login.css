@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.bg {
+    background-image:url("../img/00.jpg");
+    background-size: cover;
+    background-attachment:fixed;
+}
+.bg .box {
+    /*background-color:rgb(190,189,190);*/
+    background-color: white;
+    border: 1px solid skyblue;
+    width: 25%;
+    margin: 200px auto;
+    /*opacity: 0.5;*/
+}
+.bg .box .myForm {
+    margin-top:30px;
+}
+.bg .box h3{
+    color: #fff;
+    background-color: #ddd;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 16px;
+}
+.bg .box .myForm input{
+    width: 80%;
+    margin: 0 10%;
+    background-color: #ddd;
+    border: 1px solid rgb(34,85,128);
+    padding: 5px 0;
+    text-indent: 10px;
+    margin-top: 30px;
+    color:white;
+    border: none;
+    height: 25px;
+}
+.bg .box .myForm button{
+	background-color:skyblue;
+	height:40px;
+	margin-bottom:20px;
+}
+.bg .box .myForm button {
+    background: skyblue;
+    border: none;
+    color: #fff;
+    width: 80%;
+    margin: 30px 10%;
+    padding: 10px;
+}
